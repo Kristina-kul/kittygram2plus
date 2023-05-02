@@ -131,15 +131,18 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated', 
     ],
 
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.UserRateThrottle',
+        # Не будем подключать класс AnonRateThrottle глобально.
+        # Подключим его только в тех view-классах или вьюсетах,
+        # где надо установить лимиты для анонимов
     ],
 
         'DEFAULT_THROTTLE_CLASSES': [
         'rest_framework.throttling.UserRateThrottle',
         'rest_framework.throttling.AnonRateThrottle',
     ],
-    
+
     'DEFAULT_THROTTLE_RATES': {
         'user': '10000/day',  # Лимит для UserRateThrottle
         'anon': '1000/day',  # Лимит для AnonRateThrottle
